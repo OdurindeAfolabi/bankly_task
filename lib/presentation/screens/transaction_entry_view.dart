@@ -231,8 +231,11 @@ class _TransactionEntryViewState extends State<TransactionEntryView> with Single
         return AllTransactionView(allTransactions: filteredTransactions);
       case ResponseState.ERROR:
         return NetworkErrorScreen(
-            onPressed: (){
-              viewModel.getAllTransactions();
+            onPressed: () async {
+              await viewModel.getAllTransactions();
+              setState(() {
+                filteredTransactions = viewModel.transactionList;
+              });
             }, title: viewModel.viewState.exception.toString());
       case ResponseState.EMPTY:
         return const SizedBox();
@@ -250,8 +253,11 @@ class _TransactionEntryViewState extends State<TransactionEntryView> with Single
         return CreditTransactionView(creditTransactions: filteredTransactions.where((element) => element.trnDrCr == "deposit").toList());
       case ResponseState.ERROR:
         return NetworkErrorScreen(
-            onPressed: (){
-              viewModel.getAllTransactions();
+            onPressed: () async {
+              await viewModel.getAllTransactions();
+              setState(() {
+                filteredTransactions = viewModel.transactionList;
+              });
             },title: viewModel.viewState.exception.toString());
       case ResponseState.EMPTY:
         return const SizedBox();
@@ -269,8 +275,11 @@ class _TransactionEntryViewState extends State<TransactionEntryView> with Single
         return DebitTransactionView(debitTransactions: filteredTransactions.where((element) => element.trnDrCr != "deposit").toList());
       case ResponseState.ERROR:
         return NetworkErrorScreen(
-            onPressed: (){
-              viewModel.getAllTransactions();
+            onPressed: () async {
+              await viewModel.getAllTransactions();
+              setState(() {
+                filteredTransactions = viewModel.transactionList;
+              });
             }, title: viewModel.viewState.exception.toString());
       case ResponseState.EMPTY:
         return const SizedBox();
