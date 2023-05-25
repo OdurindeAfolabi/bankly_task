@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bankly_task/core/models/transaction_response_model.dart';
 import 'package:bankly_task/utils/app_extension.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,10 @@ class TransactionItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NumberFormat currencyFormat = NumberFormat.currency(decimalDigits: 2,symbol: "₦");
+    final NumberFormat currencyFormat =
+    Platform.isIOS ?
+    NumberFormat.currency(decimalDigits: 2,symbol: "₦"):
+    NumberFormat.currency(decimalDigits: 2,symbol: "N");
     final double sWidth = Responsive.screenWidth(context);
     return Container(
       width: sWidth,
